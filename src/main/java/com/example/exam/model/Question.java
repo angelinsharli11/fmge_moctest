@@ -12,15 +12,11 @@ public class Question {
 
     @Column(nullable = false, length = 1024)
     private String text;
-    @Column(name = "image_name")
-    private String imageName;
-    public String getImageName() {
-        return imageName;
-    }
+    @Lob
+@Column(columnDefinition = "BYTEA")
+private byte[] image;
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
+private String imageType;
 
 
     @Column(nullable = false)
