@@ -65,11 +65,20 @@
                                 <input type="number" class="form-control" id="marks" th:field="*{marks}" min="1" required>
                             </div>
                         </div>
-                        <div class="mb-3" th:if="${question.imageName != null}">
-                            <label class="form-label">Current Image</label><br>
-                            <img th:src="@{'/uploads/' + ${question.imageName}}"
-                                 class="img-fluid img-thumbnail">
-                        </div>
+                        <div class="mb-3" th:if="${question.image != null}">
+    <label class="form-label">Current Image</label><br>
+
+    <img th:src="@{'/admin/question/image/' + ${question.id}}"
+         class="img-fluid img-thumbnail mb-2"
+         alt="Question Image">
+
+    <br>
+
+    <a th:href="@{'/admin/question/delete-image/' + ${question.id}}"
+       class="btn btn-danger btn-sm">
+       Delete Image
+    </a>
+</div>
                         <!-- Image Upload -->
                         <div class="mb-3">
                             <label for="imageFile" class="form-label">Change Image (Optional)</label>
