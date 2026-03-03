@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -120,22 +121,11 @@ public class AdminController {
 
             question.setExam(exam);
 
-            // IMAGE UPLOAD
-            if (imageFile != null && !imageFile.isEmpty()) {
-
-                String uploadDir = System.getProperty("user.dir") + "/uploads/";
-                String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
-
-                File uploadPath = new File(uploadDir);
-                if (!uploadPath.exists()) {
-                    uploadPath.mkdirs();
-                }
-
-                File dest = new File(uploadPath, fileName);
-                imageFile.transferTo(dest);
-
-                question.setImageName(fileName);
-            }
+            // IMAGE SAVE TO DATABASE
+if (imageFile != null && !imageFile.isEmpty()) {
+    question.setImage(imageFile.getBytes());
+    question.setImageType(imageFile.getContentType());
+}
 
             // SAVE QUESTION
             questionRepository.save(question);
@@ -235,38 +225,14 @@ public class AdminController {
         existingQuestion.setMarks(updatedQuestion.getMarks());
 
         // 🔥 IMAGE UPDATE PART
-        // 🔥 IMAGE UPDATE PART
         if (imageFile != null && !imageFile.isEmpty()) {
-
-            try {
-
-                String uploadDir = System.getProperty("user.dir") + "/uploads/";
-
-                // ✅ Delete old image if it exists
-                if (existingQuestion.getImageName() != null) {
-                    File oldFile = new File(uploadDir + existingQuestion.getImageName());
-                    if (oldFile.exists()) {
-                        oldFile.delete();
-                    }
-                }
-
-                // ✅ Save new image
-                String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
-
-                File uploadPath = new File(uploadDir);
-                if (!uploadPath.exists()) {
-                    uploadPath.mkdirs();
-                }
-
-                File dest = new File(uploadDir + fileName);
-                imageFile.transferTo(dest);
-
-                existingQuestion.setImageName(fileName);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    try {
+        existingQuestion.setImage(imageFile.getBytes());
+        existingQuestion.setImageType(imageFile.getContentType());
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
         questionRepository.save(existingQuestion);
 
@@ -300,26 +266,20 @@ public class AdminController {
         return "admin/manage_students";
     }
 
-    @GetMapping("/deleteImage/{questionId}")
-    public String deleteImage(@PathVariable Long questionId) {
+    @GetMapping("/question/delete-image/{questionId}")
+public String deleteImage(@PathVariable Long questionId) {
 
-        Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid question Id"));
+    Question question = questionRepository.findById(questionId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid question Id"));
 
-        String uploadDir = System.getProperty("user.dir") + "/uploads/";
+    // Remove image from database
+    question.setImage(null);
+    question.setImageType(null);
 
-        if (question.getImageName() != null) {
-            File oldFile = new File(uploadDir + question.getImageName());
-            if (oldFile.exists()) {
-                oldFile.delete();
-            }
-        }
+    questionRepository.save(question);
 
-        question.setImageName(null);
-        questionRepository.save(question);
-
-        return "redirect:/admin/question/edit/" + questionId;
-    }
+    return "redirect:/admin/question/edit/" + questionId;
+}
 
     @GetMapping("/student/delete/{id}")
     @Transactional
