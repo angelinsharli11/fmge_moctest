@@ -17,20 +17,21 @@ public class OnlineExamApplication {
 	}
 
 
-	//  will run once when the application starts
+	
 	@Bean
 	CommandLineRunner createAdminUser(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		return args -> {
 			String adminUsername = "admin";
 
-			// Check if the admin user already exists
+			
 			if (userRepository.findByUsername(adminUsername).isEmpty()) {
 				User adminUser = new User();
 				adminUser.setUsername(adminUsername);
-				// Make sure to use the password encoder
+				
 				adminUser.setPassword(passwordEncoder.encode("adminpass"));
 				adminUser.setRole("ROLE_ADMIN");
 				adminUser.setFullName("Admin");
+				adminUser.setMobileNumber("9999999999");
 
 				userRepository.save(adminUser);
 				System.out.println(">>> Admin user created: admin / adminpass <<<");
