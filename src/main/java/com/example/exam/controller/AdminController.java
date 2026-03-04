@@ -141,6 +141,21 @@ if (imageFile != null && !imageFile.isEmpty()) {
 
         return "redirect:/admin/exam/" + examId + "/question/add";
     }
+    @GetMapping("/question/image/{id}")
+public ResponseEntity<byte[]> getQuestionImage(@PathVariable Long id) {
+
+    Question question = questionRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid question Id"));
+
+    if (question.getImage() == null) {
+        return ResponseEntity.notFound().build();
+    }
+
+    return ResponseEntity
+            .ok()
+            .header("Content-Type", question.getImageType())
+            .body(question.getImage());
+}
 
     @GetMapping("/results/{examId}")
     public String viewResults(@PathVariable Long examId, Model model) {
