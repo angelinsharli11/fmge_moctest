@@ -47,20 +47,21 @@
             <td th:text="${q.text}">Sample Question</td>
 
             <td>
-              <div th:if="${q.imageName != null and q.imageName != ''}">
-                <img th:src="@{'/uploads/' + ${q.imageName}}"
-                     class="img-fluid img-thumbnail"/>
-                <br/>
-                <a th:href="@{/admin/deleteImage/{id}(id=${q.id})}"
-                   style="color:red;">
-                  Delete Image
-                </a>
-              </div>
+  <div th:if="${q.image != null}">
+    <img th:src="@{'/admin/question/image/' + ${q.id}}"
+         class="img-fluid img-thumbnail"
+         style="max-height:100px;"/>
+    <br/>
+    <a th:href="@{'/admin/question/delete-image/' + ${q.id}}"
+       style="color:red;">
+      Delete Image
+    </a>
+  </div>
 
-              <div th:if="${q.imageName == null or q.imageName == ''}">
-                No Image
-              </div>
-            </td>
+  <div th:if="${q.image == null}">
+    No Image
+  </div>
+</td>
 
             <td th:text="${q.marks}">5</td>
             <td th:text="${q.correctAnswer}">1</td>
