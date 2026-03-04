@@ -48,12 +48,12 @@
 
             <td>
   <div th:if="${q.image != null}">
-    <img th:src="@{'/admin/question/image/' + ${q.id}}"
-         class="img-fluid img-thumbnail"
-         style="max-height:100px;"/>
+    <img th:src="@{/admin/question/image/{id}(id=${q.id})}"
+     class="img-fluid img-thumbnail"
+     style="max-height:100px;"/>
     <br/>
-    <a th:href="@{'/admin/question/delete-image/' + ${q.id}}"
-       style="color:red;">
+    <a th:href="@{/admin/question/delete-image/{id}(id=${q.id})}"
+   style="color:red;">
       Delete Image
     </a>
   </div>
