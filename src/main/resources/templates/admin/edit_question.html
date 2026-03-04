@@ -72,15 +72,12 @@
          class="img-fluid img-thumbnail mb-2"
          alt="Question Image">
 
-     <!-- NEW DELETE CHECKBOX -->
-    <div class="form-check mt-2">
-        <input type="checkbox" name="deleteImage"
-               class="form-check-input"
-               id="deleteImage">
-        <label class="form-check-label text-danger" for="deleteImage">
-            Delete current image
-        </label>
-    </div>
+    <br>
+                            <a th:href="@{'/admin/question/delete-image/' + ${question.id}}"
+   class="btn btn-danger btn-sm">
+   Delete Image
+</a>
+
 </div>
                         <!-- Image Upload -->
                         <div class="mb-3">
