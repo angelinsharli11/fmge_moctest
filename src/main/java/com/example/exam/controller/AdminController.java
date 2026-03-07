@@ -353,16 +353,3 @@ public String deleteImage(@PathVariable Long questionId) {
         return "redirect:/admin/students";
     }
 }
-@GetMapping("/question/image/{id}")
-@ResponseBody
-public ResponseEntity<byte[]> getQuestionImage(@PathVariable Long id) {
-
-    Question question = questionRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid question id"));
-
-    return ResponseEntity
-            .ok()
-            .header("Content-Type", question.getImageType())
-            .body(question.getImage());
-}
-
