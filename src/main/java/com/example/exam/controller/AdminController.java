@@ -112,7 +112,7 @@ public class AdminController {
     @PostMapping("/exam/question/add")
     public String addQuestion(@ModelAttribute Question question,
                               @RequestParam Long examId,
-                             @RequestParam(value="imageFile", required=false) MultipartFile imageFile,
+                              @RequestParam("imageFile") MultipartFile imageFile,
                               RedirectAttributes redirectAttributes) {
 
         try {
