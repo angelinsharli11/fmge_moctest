@@ -125,6 +125,9 @@ public class AdminController {
 if (imageFile != null && !imageFile.isEmpty()) {
     question.setImage(imageFile.getBytes());
     question.setImageType(imageFile.getContentType());
+} else {
+    question.setImage(null);
+    question.setImageType(null);
 }
 
             // SAVE QUESTION
