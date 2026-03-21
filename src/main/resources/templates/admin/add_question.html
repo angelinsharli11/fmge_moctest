@@ -24,6 +24,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
+    <div th:if="${errorMessage}" class="alert alert-danger">
+    <span th:text="${errorMessage}"></span>
+</div>
+
 
     <form th:action="@{/admin/exam/question/add}"
           th:object="${question}"
