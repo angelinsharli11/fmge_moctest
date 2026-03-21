@@ -134,10 +134,11 @@ if (imageFile != null && !imageFile.isEmpty()) {
                     "Question added successfully!");
 
         } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("errorMessage",
-                    "Error adding question: " + e.getMessage());
-        }
+    e.printStackTrace();
+
+    redirectAttributes.addFlashAttribute("errorMessage",
+            "🔥 ERROR: " + e.getMessage());
+}
 
         return "redirect:/admin/exam/" + examId + "/question/add";
     }
