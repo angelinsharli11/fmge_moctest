@@ -13,7 +13,7 @@ public class Question {
     @Column(nullable = false, length = 1024)
     private String text;
     @Lob
-@Column(columnDefinition = "BYTEA")
+@Column(name = "image", columnDefinition = "bytea")
 private byte[] image;
 
 private String imageType;
