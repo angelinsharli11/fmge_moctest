@@ -12,8 +12,8 @@ public class Question {
 
     @Column(nullable = false, length = 1024)
     private String text;
-    @Lob
-@Column(name = "image", columnDefinition = "bytea")
+    @Column(name = "image")
+
 private byte[] image;
 
 private String imageType;
