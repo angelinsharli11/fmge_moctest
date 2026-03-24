@@ -36,6 +36,8 @@ public class SecurityConfig {
                                 .requestMatchers("/js/**","/static/js/**", "/css/**", "/images/**", "/uploads/**").permitAll()
                                 // Allow static resources and public pages
                                 .requestMatchers("/", "/login", "/register", "/h2-console/**").permitAll()
+
+                                .requestMatchers("/admin/question/image/**").permitAll()       
                                 // Admin-only pages
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 // Student-only pages
