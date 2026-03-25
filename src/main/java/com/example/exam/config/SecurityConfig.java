@@ -34,6 +34,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/js/**","/static/js/**", "/css/**", "/images/**", "/uploads/**").permitAll()
+
+                                .requestMatchers("/actuator/health").permitAll()       
                                 // Allow static resources and public pages
                                 .requestMatchers("/", "/login", "/register", "/h2-console/**").permitAll()
 
