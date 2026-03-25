@@ -35,7 +35,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/js/**","/static/js/**", "/css/**", "/images/**", "/uploads/**").permitAll()
 
-                                .requestMatchers("/actuator/health").permitAll()       
+                                .requestMatchers("/actuator/**").permitAll()    
                                 // Allow static resources and public pages
                                 .requestMatchers("/", "/login", "/register", "/h2-console/**").permitAll()
 
